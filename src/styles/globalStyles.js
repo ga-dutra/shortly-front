@@ -59,7 +59,7 @@ a {
   box-sizing: border-box;
 }
 body {
-
+  font-family: 'Lexend Deca', sans-serif;
 }
 `;
 
