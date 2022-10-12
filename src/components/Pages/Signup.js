@@ -1,6 +1,6 @@
-import FormWrapper from "../common/FormWrapper";
-import Logo from "../common/Logo";
-import Header from "../common/Header";
+import FormWrapper from "../FormWrapper";
+import Logo from "../Logo";
+import Header from "../Header";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
