@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import Header from "../Header";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { postSignUp } from "../../api/services";
 
 export default function Signup() {
   const [form, setForm] = useState({});
@@ -14,7 +15,23 @@ export default function Signup() {
       [name]: value,
     });
   }
-  function sendForm() {}
+  async function sendForm() {
+    if (form.password !== form.confirmPassword) {
+      alert("As senhas digitadas devem ser iguais!");
+      return;
+    }
+    const body = { ...form };
+    try {
+      await postSignUp(body);
+      alert("Usuário criado com sucesso!");
+      navigate("/sign-in");
+    } catch (error) {
+      alert(
+        "Não foi possível concluir o cadastro! Por favor, cheque seus dados e tente novamente."
+      );
+      console.log(error.message);
+    }
+  }
   return (
     <>
       <Header page={"signup"}>
@@ -25,7 +42,6 @@ export default function Signup() {
       <FormWrapper>
         <form
           onSubmit={(e) => {
-            console.log("tentei enviar");
             e.preventDefault();
             sendForm();
           }}
@@ -59,7 +75,7 @@ export default function Signup() {
           ></input>
           <input
             placeholder="Confirmar senha"
-            name="repeated_password"
+            name="confirmPassword"
             type="password"
             required
             onChange={(e) => {

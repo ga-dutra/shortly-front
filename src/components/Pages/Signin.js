@@ -1,11 +1,14 @@
 import FormWrapper from "../FormWrapper";
 import Logo from "../Logo";
 import Header from "../Header";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { postSignIn } from "../../api/services";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Signin() {
   const [form, setForm] = useState({});
+  const { setUserData, userData } = useContext(UserContext);
   const navigate = useNavigate();
 
   function handleForm({ value, name }) {
@@ -14,7 +17,23 @@ export default function Signin() {
       [name]: value,
     });
   }
-  function sendForm() {}
+  async function sendForm() {
+    const body = { ...form };
+    try {
+      const response = await postSignIn(body);
+      const token = response.data;
+      console.log(token);
+      setUserData({ ...userData, token: token });
+      console.log(userData);
+      alert("Login realizado com sucesso!");
+      navigate("/home");
+    } catch (error) {
+      alert(
+        "Não foi possível realizar o login! Por favor, cheque seus dados e tente novamente."
+      );
+      console.log(error.message);
+    }
+  }
   return (
     <>
       <Header page={"signin"}>
@@ -25,7 +44,6 @@ export default function Signin() {
       <FormWrapper>
         <form
           onSubmit={(e) => {
-            console.log("tentei enviar");
             e.preventDefault();
             sendForm();
           }}
