@@ -1,17 +1,33 @@
 import styled from "styled-components";
 
-export default function RankingList() {
+export default function RankingList({ name, linksCount, visitCount, index }) {
+  console.log(index);
   return (
     <Wrapper>
-      <RankingWrapper>
-        <ul>
-          <li>Fulano - 32 links - 1.072.321 vizualizações</li>
-          <li>Ciclano - 25 links - 1.011.090 vizualizações</li>
-        </ul>
+      <RankingWrapper index={index}>
+        <Position>{index}</Position>
+        <List>
+          <li>
+            {name} - {linksCount} links - {visitCount} visualizações
+          </li>
+        </List>
       </RankingWrapper>
     </Wrapper>
   );
 }
+
+const colorByIndex = {
+  1: "#FF6F50",
+  2: "#FFE750",
+  3: "#C2FF50",
+  4: "#50FF72",
+  5: "#50FFDD",
+  6: "#606F66",
+  7: "#50A2FF",
+  8: "#C250FF",
+  9: "#FF508A",
+  10: "#6F6560",
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,22 +37,38 @@ const Wrapper = styled.div`
 `;
 
 const RankingWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightblue;
+  background-color: ${(props) => colorByIndex[props.index]};
   width: 80vw;
   height: auto;
   padding: 20px 0;
-  border: 1px solid rgba(120, 177, 89, 0.25);
-  box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
-  border-radius: 24px 24px 0px 0px;
-  ul {
-    list-style: decimal;
-  }
+  box-shadow: 2px 4px 12px lightgray;
+  border-radius: 36px;
+`;
 
+const List = styled.ul`
+  list-style: none;
   li {
     padding: 6px 0;
-    font-size: 20px;
+    font-size: 21px;
   }
+`;
+
+const Position = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 32px;
+  padding: 0 0 2px 0;
 `;

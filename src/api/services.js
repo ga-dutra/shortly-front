@@ -12,4 +12,9 @@ function postSignIn(body) {
   return promise;
 }
 
-export { postSignUp, postSignIn };
+function getRanking() {
+  const promise = axios.get(`${base_url}/ranking`);
+  return promise;
+}
+
+export { postSignUp, postSignIn, getRanking };

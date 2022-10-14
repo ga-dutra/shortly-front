@@ -16,7 +16,8 @@ const HeaderWrapper = styled.div`
   }
 
   p,
-  h2 {
+  h2,
+  h3 {
     font-size: 16px;
     margin-right: 15px;
     cursor: pointer;

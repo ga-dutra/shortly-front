@@ -22,9 +22,7 @@ export default function Signin() {
     try {
       const response = await postSignIn(body);
       const token = response.data;
-      console.log(token);
       setUserData({ ...userData, token: token });
-      console.log(userData);
       alert("Login realizado com sucesso!");
       navigate("/home");
     } catch (error) {

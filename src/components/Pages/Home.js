@@ -3,9 +3,21 @@ import Logo from "../Logo";
 import UserLink from "../UserLink";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getRanking } from "../../api/services";
 
 export default function Home() {
   const navigate = useNavigate();
+  let ranking;
+  useEffect(() => {
+    async function listRanking() {
+      console.log("deveria ter tentado");
+      ranking = await getRanking();
+    }
+    listRanking();
+    console.log(ranking);
+  }, []);
+  console.log(ranking);
   return (
     <>
       <Header page={"home"}>
