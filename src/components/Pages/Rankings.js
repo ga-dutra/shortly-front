@@ -22,13 +22,16 @@ export default function Rankings() {
     listRanking();
   }, []);
   console.log(ranking);
-
+  console.log(userData);
   return (
     <>
       <Header page={"rankings"}>
-        {userData.name ? (
+        {userData.username ? (
           <>
-            <h1>Bem vindo(a), {userData.name}</h1>
+            <h1>
+              Bem vindo(a),{" "}
+              {userData.username ? <span>{userData.username}</span> : ""}
+            </h1>
             <h2 onClick={() => navigate("/home")}>Home</h2>
             <h2>Ranking</h2>
             <h2>Sair</h2>
@@ -60,7 +63,7 @@ export default function Rankings() {
         <LoadingAnimation></LoadingAnimation>
       )}
 
-      {userData.name ? (
+      {userData.username ? (
         ""
       ) : (
         <Warning>Crie sua conta para usar nosso serviço!</Warning>

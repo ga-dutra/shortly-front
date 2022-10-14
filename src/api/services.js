@@ -17,4 +17,12 @@ function getRanking() {
   return promise;
 }
 
-export { postSignUp, postSignIn, getRanking };
+function getUserData(token) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const promise = axios.get(`${base_url}/auth/users/me`, config);
+  return promise;
+}
+
+export { postSignUp, postSignIn, getRanking, getUserData };

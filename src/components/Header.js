@@ -23,6 +23,11 @@ const HeaderWrapper = styled.div`
     cursor: pointer;
     color: #9c9c9c;
   }
+
+  span {
+    color: #5d9040;
+  }
+
   p:nth-child(1) {
     color: ${(props) => (props.page === "signup" ? "#9C9C9C" : "#5D9040")};
   }

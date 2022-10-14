@@ -3,25 +3,31 @@ import Logo from "../Logo";
 import UserLink from "../UserLink";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getRanking } from "../../api/services";
+import { useContext, useEffect, useState } from "react";
+import { getUserData } from "../../api/services";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  let ranking;
+  const { userData, setUserData } = useContext(UserContext);
+  const [userLinks, setUserLinks] = useState([]);
+
   useEffect(() => {
-    async function listRanking() {
-      console.log("deveria ter tentado");
-      ranking = await getRanking();
+    async function getUserLinks() {
+      const response = await getUserData(userData.token);
+      setUserLinks(response.data);
+      setUserData({ ...userData, username: response.data.name });
     }
-    listRanking();
-    console.log(ranking);
+    getUserLinks();
   }, []);
-  console.log(ranking);
+  console.log(userLinks);
+
   return (
     <>
       <Header page={"home"}>
-        <h1>Bem vindo, pessoa</h1>
+        <h1>
+          Bem vindo(a), {userLinks.name ? <span>{userLinks.name}</span> : ""}
+        </h1>
         <h2>Home</h2>
         <h2 onClick={() => navigate("/rankings")}>Ranking</h2>
         <h2>Sair</h2>
