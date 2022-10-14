@@ -30,7 +30,7 @@ export default function Home() {
       return alert("Por favor, digite uma url válida");
     }
 
-    const response = await postShortLink(userData.token, url);
+    await postShortLink(userData.token, url);
     setReRender(reRender + 1);
     setUrl("");
   }

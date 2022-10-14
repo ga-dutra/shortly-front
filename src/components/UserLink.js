@@ -15,7 +15,7 @@ export default function UserLink({
 
   async function deleteUserLink() {
     try {
-      const response = await deleteLink(userData.token, id);
+      await deleteLink(userData.token, id);
       alert("Link deletado com sucesso");
       setReRender(reRender + 1);
     } catch (error) {
@@ -25,7 +25,7 @@ export default function UserLink({
 
   async function userRedirect() {
     try {
-      const promise = redirectUser(id);
+      await redirectUser(id);
     } catch (error) {
       console.log(error.message);
     }
