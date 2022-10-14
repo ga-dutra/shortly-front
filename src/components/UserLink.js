@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
-export default function UserLink() {
+export default function UserLink({ url, shortUrl, visitCount }) {
   return (
     <Wrapper>
       <ContentWrapper>
-        <p>a</p>
-        <p>b</p>
-        <p>c</p>
+        <p>
+          {url.slice(0, 25)}
+          {url[25] ? "..." : ""}
+        </p>
+        <p>{shortUrl}</p>
+        <p>Quantidade de visitantes: {visitCount}</p>
       </ContentWrapper>
       <IconWrapper>
         <ion-icon name="trash"></ion-icon>

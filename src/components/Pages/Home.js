@@ -40,7 +40,16 @@ export default function Home() {
         ></input>
         <button>Encurtar Link</button>
       </InputWrapper>
-      <UserLink></UserLink>
+      {userData.username
+        ? userLinks.shortenedUrls.map((item, index) => (
+            <UserLink
+              key={index}
+              url={item.url}
+              shortUrl={item.shortUrl}
+              visitCount={item.visitCount}
+            ></UserLink>
+          ))
+        : ""}
     </>
   );
 }
