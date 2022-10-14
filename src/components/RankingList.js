@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export default function RankingList({ name, linksCount, visitCount, index }) {
-  console.log(index);
   return (
     <Wrapper>
       <RankingWrapper index={index}>

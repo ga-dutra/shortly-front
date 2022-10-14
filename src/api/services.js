@@ -42,6 +42,11 @@ function deleteLink(token, linkId) {
   return promise;
 }
 
+function redirectUser(linkId) {
+  const promise = axios.get(`${base_url}/urls/open/${linkId}`);
+  return promise;
+}
+
 export {
   postSignUp,
   postSignIn,
@@ -49,4 +54,5 @@ export {
   getUserData,
   postShortLink,
   deleteLink,
+  redirectUser,
 };

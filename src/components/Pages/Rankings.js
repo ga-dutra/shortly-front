@@ -21,8 +21,6 @@ export default function Rankings() {
     }
     listRanking();
   }, []);
-  console.log(ranking);
-  console.log(userData);
   return (
     <>
       <Header page={"rankings"}>

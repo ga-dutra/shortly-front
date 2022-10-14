@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { deleteLink } from "../api/services";
+import { deleteLink, redirectUser } from "../api/services";
 import { UserContext } from "../contexts/UserContext";
 
 export default function UserLink({
@@ -14,20 +14,31 @@ export default function UserLink({
   const { userData } = useContext(UserContext);
 
   async function deleteUserLink() {
-    const response = await deleteLink(userData.token, id);
-    alert("Link deletado com sucesso");
-    setReRender(reRender + 1);
-    console.log(response);
+    try {
+      const response = await deleteLink(userData.token, id);
+      alert("Link deletado com sucesso");
+      setReRender(reRender + 1);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function userRedirect() {
+    try {
+      const promise = redirectUser(id);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   return (
     <Wrapper>
       <ContentWrapper>
         <p>
-          {url.slice(0, 25)}
-          {url[25] ? "..." : ""}
+          {url.slice(0, 23)}
+          {url[23] ? "..." : ""}
         </p>
-        <p>{shortUrl}</p>
+        <p onClick={userRedirect}>{shortUrl}</p>
         <p>Quantidade de visitantes: {visitCount}</p>
       </ContentWrapper>
       <IconWrapper>

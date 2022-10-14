@@ -22,7 +22,6 @@ export default function Home() {
     }
     getUserLinks();
   }, [reRender]);
-  console.log(userLinks);
 
   async function shortLink() {
     const httpRegex =
@@ -30,10 +29,9 @@ export default function Home() {
     if (!httpRegex.test(url)) {
       return alert("Por favor, digite uma url válida");
     }
-    console.log(userData.token);
+
     const response = await postShortLink(userData.token, url);
-    console.log(response);
-    console.log(response.data);
+    setReRender(reRender + 1);
     setUrl("");
   }
 
