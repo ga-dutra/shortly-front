@@ -25,4 +25,28 @@ function getUserData(token) {
   return promise;
 }
 
-export { postSignUp, postSignIn, getRanking, getUserData };
+function postShortLink(token, url) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const body = { url: url };
+  const promise = axios.post(`${base_url}/urls/shorten`, body, config);
+  return promise;
+}
+
+function deleteLink(token, linkId) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const promise = axios.delete(`${base_url}/urls/${linkId}`, config);
+  return promise;
+}
+
+export {
+  postSignUp,
+  postSignIn,
+  getRanking,
+  getUserData,
+  postShortLink,
+  deleteLink,
+};

@@ -1,6 +1,25 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { deleteLink } from "../api/services";
+import { UserContext } from "../contexts/UserContext";
 
-export default function UserLink({ url, shortUrl, visitCount }) {
+export default function UserLink({
+  id,
+  url,
+  shortUrl,
+  visitCount,
+  reRender,
+  setReRender,
+}) {
+  const { userData } = useContext(UserContext);
+
+  async function deleteUserLink() {
+    const response = await deleteLink(userData.token, id);
+    alert("Link deletado com sucesso");
+    setReRender(reRender + 1);
+    console.log(response);
+  }
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -12,7 +31,16 @@ export default function UserLink({ url, shortUrl, visitCount }) {
         <p>Quantidade de visitantes: {visitCount}</p>
       </ContentWrapper>
       <IconWrapper>
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon
+          onClick={() => {
+            if (
+              window.confirm(`Tem certeza de que deseja apagar o link ${url}?`)
+            ) {
+              deleteUserLink();
+            }
+          }}
+          name="trash"
+        ></ion-icon>
       </IconWrapper>
     </Wrapper>
   );
@@ -53,5 +81,6 @@ const IconWrapper = styled.div`
   ion-icon {
     font-size: 28px;
     color: #ea4f4f;
+    cursor: pointer;
   }
 `;

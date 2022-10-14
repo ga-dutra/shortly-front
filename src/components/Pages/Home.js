@@ -4,13 +4,15 @@ import UserLink from "../UserLink";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { getUserData } from "../../api/services";
+import { getUserData, postShortLink } from "../../api/services";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserContext);
-  const [userLinks, setUserLinks] = useState([]);
+  const { userData, setUserData, userLinks, setUserLinks } =
+    useContext(UserContext);
+  const [reRender, setReRender] = useState(0);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     async function getUserLinks() {
@@ -19,8 +21,21 @@ export default function Home() {
       setUserData({ ...userData, username: response.data.name });
     }
     getUserLinks();
-  }, []);
+  }, [reRender]);
   console.log(userLinks);
+
+  async function shortLink() {
+    const httpRegex =
+      /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+    if (!httpRegex.test(url)) {
+      return alert("Por favor, digite uma url válida");
+    }
+    console.log(userData.token);
+    const response = await postShortLink(userData.token, url);
+    console.log(response);
+    console.log(response.data);
+    setUrl("");
+  }
 
   return (
     <>
@@ -37,16 +52,23 @@ export default function Home() {
         <input
           placeholder="Insira o link que deseja encurtar"
           type="text"
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
         ></input>
-        <button>Encurtar Link</button>
+        <button onClick={shortLink}>Encurtar Link</button>
       </InputWrapper>
       {userData.username
-        ? userLinks.shortenedUrls.map((item, index) => (
+        ? userLinks.shortenedUrls.map((item) => (
             <UserLink
-              key={index}
+              key={item.id}
+              id={item.id}
               url={item.url}
               shortUrl={item.shortUrl}
               visitCount={item.visitCount}
+              reRender={reRender}
+              setReRender={setReRender}
             ></UserLink>
           ))
         : ""}

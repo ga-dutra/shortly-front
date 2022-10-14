@@ -8,7 +8,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 export default function Signin() {
   const [form, setForm] = useState({});
-  const { setUserData, userData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   function handleForm({ value, name }) {
