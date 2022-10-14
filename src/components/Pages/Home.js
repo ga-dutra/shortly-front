@@ -45,7 +45,17 @@ export default function Home() {
         </h1>
         <h2>Home</h2>
         <h2 onClick={() => navigate("/rankings")}>Ranking</h2>
-        <h2>Sair</h2>
+        <h2
+          onClick={() => {
+            if (window.confirm("Tem certeza de que deseja sair?")) {
+              setUserData({});
+              setUserLinks([]);
+              navigate("/");
+            }
+          }}
+        >
+          Sair
+        </h2>
       </Header>
       <Logo></Logo>
       <InputWrapper>

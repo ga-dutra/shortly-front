@@ -11,7 +11,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 export default function Rankings() {
   const navigate = useNavigate();
-  const { userData } = useContext(UserContext);
+  const { userData, setUserData, setUserLinks } = useContext(UserContext);
   const [ranking, setRanking] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,17 @@ export default function Rankings() {
             </h1>
             <h2 onClick={() => navigate("/home")}>Home</h2>
             <h2>Ranking</h2>
-            <h2>Sair</h2>
+            <h2
+              onClick={() => {
+                if (window.confirm("Tem certeza de que deseja sair?")) {
+                  setUserData({});
+                  setUserLinks([]);
+                  navigate("/");
+                }
+              }}
+            >
+              Sair
+            </h2>
           </>
         ) : (
           <>
